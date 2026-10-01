@@ -131,6 +131,47 @@ html, body {
   letter-spacing: 0.08em;
 }
 
+.btn-reset-read {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.8);
+  padding: 0.4rem 0.875rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-reset-read:hover {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border-color: rgba(255,255,255,0.4);
+  transform: translateY(-1px);
+}
+
+/* ── Chincheta como botón de reset ──────────────────────── */
+button.muro-emoji {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 6px rgba(168,85,247,0.4));
+  transition: transform 0.15s ease, filter 0.15s ease;
+  line-height: 1;
+}
+
+button.muro-emoji:hover {
+  transform: scale(1.2) rotate(-15deg);
+  filter: drop-shadow(0 4px 10px rgba(168,85,247,0.7));
+}
+
+button.muro-emoji:active {
+  transform: scale(0.9) rotate(5deg);
+}
+
 /* ── Cork board background ───────────────────────────────── */
 .corkboard {
   min-height: calc(100vh - 70px);

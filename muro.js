@@ -404,6 +404,13 @@
     document.body.appendChild(banner);
   }
 
+  // ── Reset leídos ──────────────────────────────────────────
+  document.getElementById('btnResetRead').addEventListener('click', () => {
+    localStorage.removeItem('read_postit_ids');
+    localStorage.removeItem('opened_env_ids');
+    location.reload();
+  });
+
   // ── Init ──────────────────────────────────────────────────
   loadPostits();
 
