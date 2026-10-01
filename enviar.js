@@ -82,7 +82,17 @@
 
   // ── Char counter ──────────────────────────────────────────
   messageEl.addEventListener('input', () => {
-    const len = messageEl.value.length;
+    // 1. Convertimos el texto en un array para que los emojis cuenten como 1
+    let chars = [...messageEl.value];
+    
+    // 2. Limitador: Si superan los 1000 caracteres reales, cortamos el texto
+    if (chars.length > 1000) {
+      messageEl.value = chars.slice(0, 1000).join('');
+      chars = [...messageEl.value]; // Recalculamos tras cortar
+    }
+    
+    // 3. Actualizamos el contador visual con la longitud real
+    const len = chars.length;
     charCountEl.textContent = len;
     charCounter.className = 'char-counter';
     if (len > 800) charCounter.classList.add('warn');
@@ -105,6 +115,13 @@
       messageEl.focus();
       return;
     }
+
+    // Validación extra antes de enviarlo a Firebase
+    if ([...msg].length > 1000) {
+      showToast('❌ El mensaje es demasiado largo.', 'error');
+      return;
+    }
+
     messageEl.classList.remove('error');
     messageError.classList.remove('visible');
 
