@@ -1,0 +1,458 @@
+/* ============================================================
+   unlock.css — Pantalla de desbloqueo del tablón secreto
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg1: #0d0621;
+  --bg2: #1a0a3a;
+  --accent: #a855f7;
+  --accent2: #ec4899;
+  --gold: #f59e0b;
+  --text: #f1f5f9;
+  --text-dim: #94a3b8;
+  --card-bg: rgba(255,255,255,0.06);
+  --card-border: rgba(255,255,255,0.1);
+  --radius: 20px;
+  --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: linear-gradient(135deg, var(--bg1) 0%, #1a0535 50%, var(--bg2) 100%);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── Stars ───────────────────────────────────────────────── */
+.stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: twinkle linear infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.1; transform: scale(1); }
+  50%       { opacity: 0.8; transform: scale(1.4); }
+}
+
+/* ── Unlock screen (pastel) ──────────────────────────────── */
+.unlock-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.unlock-card {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  animation: fadeInUp 0.6s cubic-bezier(0.4,0,0.2,1) both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Cake button ─────────────────────────────────────────── */
+.cake-wrapper {
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cake-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(168,85,247,0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1);   opacity: 0.6; }
+  50%       { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+}
+
+/* ── Cake CSS art ────────────────────────────────────────── */
+.cake {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  transition: transform 0.15s ease;
+  filter: drop-shadow(0 8px 24px rgba(168,85,247,0.4));
+}
+
+.cake-wrapper:hover .cake  { transform: scale(1.05) translateY(-4px); }
+.cake-wrapper:active .cake { transform: scale(0.97); }
+
+/* Velas */
+.candles {
+  display: flex;
+  gap: 14px;
+  margin-bottom: -4px;
+  z-index: 3;
+}
+
+.candle {
+  width: 10px;
+  height: 36px;
+  background: linear-gradient(to bottom, #fde68a, #f59e0b);
+  border-radius: 3px 3px 2px 2px;
+  position: relative;
+  box-shadow: inset -2px 0 4px rgba(0,0,0,0.2);
+}
+
+.flame {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 20px;
+  background: radial-gradient(ellipse at 50% 80%, #fff176, #fbbf24 40%, #f97316 70%, transparent 100%);
+  border-radius: 50% 50% 30% 30%;
+  animation: flicker 0.8s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 6px #f97316);
+}
+
+.flame-inner {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 10px;
+  background: radial-gradient(ellipse at 50% 80%, #fff, #fde68a);
+  border-radius: 50%;
+}
+
+@keyframes flicker {
+  from { transform: translateX(-50%) scaleX(1)   scaleY(1);    }
+  to   { transform: translateX(-50%) scaleX(0.88) scaleY(0.92); }
+}
+
+/* Capas */
+.cake-top {
+  width: 140px;
+  height: 45px;
+  background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.cake-mid {
+  width: 160px;
+  height: 50px;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  position: relative;
+}
+
+.cake-bot {
+  width: 180px;
+  height: 55px;
+  background: linear-gradient(135deg, #5b21b6, #7c3aed);
+  border-radius: 0 0 12px 12px;
+}
+
+/* Frosting drips */
+.frosting-drip {
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 22px;
+  background: #fff;
+  border-radius: 0 0 50% 50%;
+  opacity: 0.9;
+}
+.d1 { left: 10px; height: 18px; }
+.d2 { left: 38px; height: 25px; }
+.d3 { left: 72px; height: 20px; }
+.d4 { left: 106px; height: 16px; }
+
+/* Decoración fresa */
+.cake-deco {
+  position: absolute;
+  top: -8px;
+  right: 16px;
+  font-size: 1.4rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  animation: bobble 2s ease-in-out infinite;
+}
+
+@keyframes bobble {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
+}
+
+.cake-hint {
+  font-family: 'Caveat', cursive;
+  font-size: 1.5rem;
+  color: var(--text-dim);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+/* ── Combo screen ────────────────────────────────────────── */
+.combo-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+  position: relative;
+}
+
+.combo-screen[hidden] { display: none; }
+
+.combo-card {
+  position: relative;
+  z-index: 10;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+  animation: cardIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.combo-cake-mini {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 0.75rem;
+  filter: drop-shadow(0 0 12px rgba(245,158,11,0.5));
+  animation: bobble 2s ease-in-out infinite;
+}
+
+.combo-title {
+  font-family: 'Caveat', cursive;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.combo-subtitle {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+}
+
+/* ── Two-column layout ───────────────────────────────────── */
+.combo-fields {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 560px) {
+  .combo-fields { grid-template-columns: 1fr; }
+}
+
+.section-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 0.875rem;
+}
+
+/* ── Digit inputs ────────────────────────────────────────── */
+.digits-section { }
+
+.digits-row {
+  display: flex;
+  gap: 0.625rem;
+  justify-content: center;
+}
+
+.digit-input {
+  width: 58px;
+  height: 72px;
+  background: rgba(255,255,255,0.07);
+  border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: 'Caveat', cursive;
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+  -moz-appearance: textfield;
+}
+
+.digit-input::-webkit-inner-spin-button,
+.digit-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+.digit-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(168,85,247,0.3);
+  background: rgba(168,85,247,0.1);
+}
+
+.digit-input.filled {
+  border-color: rgba(168,85,247,0.6);
+  background: rgba(168,85,247,0.12);
+}
+
+/* ── Agent grid ──────────────────────────────────────────── */
+.agent-section { }
+
+.agent-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(168,85,247,0.4) transparent;
+}
+
+.agent-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.25rem;
+  background: rgba(255,255,255,0.05);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all var(--transition);
+  color: var(--text-dim);
+  font-size: 0.62rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.agent-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.agent-btn.selected {
+  border-color: var(--accent);
+  background: rgba(168,85,247,0.2);
+  color: var(--text);
+  box-shadow: 0 0 0 3px rgba(168,85,247,0.2);
+}
+
+.agent-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* ── Unlock button ───────────────────────────────────────── */
+.btn-unlock {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--accent) 0%, #7c3aed 100%);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  box-shadow: 0 4px 20px rgba(168,85,247,0.4);
+  transition: transform var(--transition), box-shadow var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-unlock::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.btn-unlock:hover::before { opacity: 1; }
+.btn-unlock:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(168,85,247,0.55); }
+.btn-unlock:active { transform: translateY(0); }
+
+/* ── Shake animation (error) ─────────────────────────────── */
+.shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+  10%, 90%  { transform: translateX(-3px); }
+  20%, 80%  { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-5px); }
+  40%, 60%  { transform: translateX(5px); }
+}
+
+.combo-error {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #f87171;
+  font-weight: 500;
+  animation: fadeInUp 0.3s ease both;
+}
+
+.combo-error[hidden] { display: none; }
+
+/* ── Success flash ───────────────────────────────────────── */
+@keyframes successFlash {
+  0%   { background: rgba(168,85,247,0.3); }
+  100% { background: var(--card-bg); }
+}
+
+.combo-card.success {
+  animation: successFlash 0.5s ease both;
+}
