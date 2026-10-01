@@ -351,7 +351,7 @@
     // Tras la animacion, mostrar el video
     setTimeout(() => {
       envelopeOpenAnim.style.display = 'none';
-      videoPlayer.src = 'videos/' + data.file;
+      videoPlayer.src = data.file;
       videoContainer.hidden = false;
       videoPlayer.play().catch(() => {}); // autoplay (el click es user gesture)
 
