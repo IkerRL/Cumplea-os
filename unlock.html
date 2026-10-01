@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎂 Tablón de Cumpleaños</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/unlock.css" />
+</head>
+<body>
+
+  <!-- Pantalla principal: pastel -->
+  <div class="unlock-screen" id="unlockScreen">
+
+    <div class="stars" id="stars"></div>
+
+    <div class="unlock-card" id="unlockCard">
+
+      <!-- Pastel animado -->
+      <div class="cake-wrapper" id="cakeBtn" role="button" tabindex="0" aria-label="Pulsa el pastel para continuar">
+        <div class="cake-glow"></div>
+        <div class="cake">
+          <!-- Velas -->
+          <div class="candles">
+            <div class="candle"><div class="flame"><div class="flame-inner"></div></div></div>
+            <div class="candle"><div class="flame"><div class="flame-inner"></div></div></div>
+            <div class="candle"><div class="flame"><div class="flame-inner"></div></div></div>
+          </div>
+          <!-- Capas del pastel -->
+          <div class="cake-top">
+            <div class="frosting-drip d1"></div>
+            <div class="frosting-drip d2"></div>
+            <div class="frosting-drip d3"></div>
+            <div class="frosting-drip d4"></div>
+          </div>
+          <div class="cake-mid"></div>
+          <div class="cake-bot"></div>
+          <!-- Decoración -->
+          <div class="cake-deco">🍓</div>
+        </div>
+        <p class="cake-hint">Pulsa el pastel 🎂</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Pantalla de combinación secreta -->
+  <div class="combo-screen" id="comboScreen" hidden>
+    <div class="stars" id="stars2"></div>
+
+    <div class="combo-card">
+      <div class="combo-cake-mini">🎂</div>
+      <h1 class="combo-title">Acceso al tablón secreto</h1>
+      <p class="combo-subtitle">Introduce la combinación correcta para ver el muro</p>
+
+      <div class="combo-fields">
+
+        <!-- 3 dígitos -->
+        <div class="digits-section">
+          <label class="section-label">🔢 Código de 3 dígitos</label>
+          <div class="digits-row">
+            <input type="number" class="digit-input" id="d1" min="0" max="9" maxlength="1" placeholder="·" inputmode="numeric" />
+            <input type="number" class="digit-input" id="d2" min="0" max="9" maxlength="1" placeholder="·" inputmode="numeric" />
+            <input type="number" class="digit-input" id="d3" min="0" max="9" maxlength="1" placeholder="·" inputmode="numeric" />
+          </div>
+        </div>
+
+        <!-- Selector de agente Valorant -->
+        <div class="agent-section">
+          <label class="section-label">🎯 Tu agente de Valorant</label>
+          <div class="agent-grid" id="agentGrid">
+            <!-- Generado por JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Botón de acceso -->
+      <button class="btn-unlock" id="btnUnlock">
+        <span>Entrar al tablón ✨</span>
+      </button>
+
+      <!-- Error -->
+      <p class="combo-error" id="comboError" hidden>❌ Combinación incorrecta. ¡Inténtalo de nuevo!</p>
+    </div>
+  </div>
+
+  <script src="js/unlock.js"></script>
+</body>
+</html>

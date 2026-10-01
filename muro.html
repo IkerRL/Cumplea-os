@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎂 Tablón de Cumpleaños — Muro de Post-its</title>
+  <meta name="description" content="Muro interactivo con mensajes de la comunidad para el cumpleaños de la streamer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/muro.css" />
+  <script>
+    (function () {
+      var p = new URLSearchParams(window.location.search);
+      if (p.get('key') !== 'cumple') window.location.replace('unlock.html');
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Header del muro -->
+  <header class="muro-header">
+    <div class="muro-header-inner">
+      <div class="muro-title-group">
+        <span class="muro-emoji">📌</span>
+        <div>
+          <h1 class="muro-title">Tablón de Cumpleaños</h1>
+          <p class="muro-subtitle">Regalo de la comunidad 💜</p>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Loading state -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-postit">
+      <div class="loading-pin"></div>
+      <div class="loading-content">
+        <div class="loading-line l1"></div>
+        <div class="loading-line l2"></div>
+        <div class="loading-line l3"></div>
+      </div>
+    </div>
+    <p class="loading-text">Cargando mensajes del tablón...</p>
+  </div>
+
+  <!-- Estado vacío -->
+  <div class="empty-state" id="emptyState" hidden>
+    <span class="empty-emoji">📭</span>
+    <h2 class="empty-title">El tablón está vacío</h2>
+    <p class="empty-desc">Aún no hay mensajes. ¡Sé el primero en dejar un post-it!</p>
+    <a href="index.html" class="btn-goto-form">Dejar un mensaje 📝</a>
+  </div>
+
+  <!-- Tablón de corcho -->
+  <main class="corkboard" id="corkboard" aria-label="Tablón de post-its" hidden>
+    <!-- Los post-its se insertan dinámicamente aquí -->
+  </main>
+
+  <!-- Modal de post-it expandido -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal-postit" id="modalPostit">
+      <!-- Pin decorativo -->
+      <div class="modal-pin"></div>
+
+      <!-- Botón cerrar -->
+      <button class="modal-close" id="modalClose" aria-label="Cerrar mensaje">✕</button>
+
+      <!-- Cuerpo del modal -->
+      <div class="modal-body">
+        <p class="modal-message" id="modalMessage"></p>
+
+        <div class="modal-author-section" id="modalAuthorSection">
+          <!-- Anónimo -->
+          <div class="author-anonymous" id="authorAnonymous" hidden>
+            <span class="anon-badge">🎭 De: <strong>Un viewer anónimo</strong></span>
+          </div>
+
+          <!-- Con autor -->
+          <div class="author-identified" id="authorIdentified" hidden>
+            <div class="hint-section" id="hintSection" hidden>
+              <p class="hint-label">🔍 Pista:</p>
+              <p class="hint-text" id="hintText"></p>
+            </div>
+            <div class="reveal-section">
+              <button class="btn-reveal" id="btnReveal">
+                <span class="reveal-btn-icon">🔍</span>
+                <span class="reveal-btn-text">¿Quién lo escribió?</span>
+              </button>
+              <div class="author-reveal" id="authorReveal" hidden>
+                <span class="author-label">✍️ Escrito por:</span>
+                <span class="author-nick" id="authorNickDisplay"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fecha -->
+        <p class="modal-date" id="modalDate"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de vídeo (sobre) -->
+  <div class="video-modal-overlay" id="videoModalOverlay" hidden>
+    <div class="video-modal" id="videoModal">
+      <!-- Animación del sobre -->
+      <div class="envelope-open-anim" id="envelopeOpenAnim">
+        <div class="env-body">
+          <div class="env-flap" id="envFlap"></div>
+          <div class="env-bottom"></div>
+          <div class="env-left"></div>
+          <div class="env-right"></div>
+        </div>
+      </div>
+      <!-- Contenedor del vídeo (aparece tras la animación) -->
+      <div class="video-container" id="videoContainer" hidden>
+        <button class="video-close" id="videoClose" aria-label="Cerrar vídeo">✕</button>
+        <div class="video-from-badge" id="videoFromBadge" hidden></div>
+        <video
+          id="videoPlayer"
+          class="video-player"
+          controls
+          playsinline
+          preload="metadata"
+        ></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón flotante para ir al formulario -->
+  <a href="index.html" class="fab-button" title="Dejar un mensaje" aria-label="Ir al formulario para dejar un mensaje">
+    <span class="fab-icon">📝</span>
+  </a>
+
+  <!-- Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/videos.js"></script>
+  <script src="js/muro.js"></script>
+</body>
+</html>

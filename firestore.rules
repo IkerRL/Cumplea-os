@@ -1,0 +1,31 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Colección de post-its
+    match /postits/{postitId} {
+
+      // Cualquiera puede leer (para el muro público)
+      allow read: if true;
+
+      // Cualquiera puede crear (para el formulario público)
+      allow create: if
+        request.resource.data.keys().hasAll(['message', 'color', 'is_anonymous', 'is_read', 'rotation', 'created_at'])
+        && request.resource.data.message is string
+        && request.resource.data.message.size() >= 1
+        && request.resource.data.message.size() <= 1000
+        && request.resource.data.color in ['yellow', 'pink', 'green', 'blue', 'orange', 'purple']
+        && request.resource.data.is_anonymous is bool
+        && request.resource.data.is_read == false;
+
+      // Solo se puede actualizar el campo is_read
+      allow update: if
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['is_read'])
+        && request.resource.data.is_read is bool;
+
+      // No se puede borrar desde el cliente
+      allow delete: if false;
+    }
+  }
+}
