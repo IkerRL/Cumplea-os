@@ -6,7 +6,7 @@
 -- Crear la tabla principal de post-its
 CREATE TABLE IF NOT EXISTS postits (
   id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  message      TEXT NOT NULL CHECK (char_length(message) >= 1 AND char_length(message) <= 500),
+  message      TEXT NOT NULL CHECK (char_length(message) >= 1 AND char_length(message) <= 1000),
   color        TEXT NOT NULL DEFAULT 'yellow' CHECK (color IN ('yellow', 'pink', 'green', 'blue', 'orange', 'purple')),
   is_anonymous BOOLEAN NOT NULL DEFAULT false,
   author_nick  TEXT,         -- Nick de Twitch (solo si no es anónimo)
