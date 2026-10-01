@@ -134,7 +134,7 @@ html, body {
 /* ── Cork board background ───────────────────────────────── */
 .corkboard {
   min-height: calc(100vh - 70px);
-  padding: 2.5rem 1.5rem 4rem;
+  padding: 3rem 2rem 5rem;
 
   /* Textura de corcho */
   background-color: #b5813a;
@@ -143,10 +143,10 @@ html, body {
     radial-gradient(ellipse at 80% 70%, rgba(120,70,20,0.25) 0%, transparent 60%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
 
-  /* Grid de post-its */
+  /* Columnas con items desparramados */
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 2rem 1.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 1.25rem 1.5rem;
   align-items: start;
 }
 
@@ -273,10 +273,13 @@ html, body {
   will-change: transform;
   word-break: break-word;
   animation: dropIn 0.5s cubic-bezier(0.4,0,0.2,1) both;
+  /* Desplazamiento vertical aleatorio via JS */
+  margin-top: var(--offset-y, 0px);
+  margin-left: var(--offset-x, 0px);
 }
 
 @keyframes dropIn {
-  from { opacity: 0; transform: translateY(-20px) rotate(var(--rot, 0deg)); }
+  from { opacity: 0; transform: translateY(-30px) rotate(var(--rot, 0deg)); }
   to   { opacity: 1; transform: translateY(0)     rotate(var(--rot, 0deg)); }
 }
 

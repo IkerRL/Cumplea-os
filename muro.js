@@ -111,9 +111,17 @@
     card.setAttribute('role', 'button');
     card.setAttribute('aria-label', 'Abrir mensaje de post-it');
 
-    const rot = data.rotation ?? (Math.random() * 8 - 4);
+    const rot = data.rotation && Math.abs(data.rotation) <= 4
+      ? +(data.rotation * 2.5).toFixed(2)
+      : data.rotation ?? +(Math.random() * 24 - 12).toFixed(2);
     card.style.setProperty('--rot', `${rot}deg`);
     card.style.transform = `rotate(${rot}deg)`;
+
+    // Offset aleatorio para desparramar en el grid
+    const oy = Math.round(Math.random() * 50 - 10);
+    const ox = Math.round(Math.random() * 14 - 7);
+    card.style.marginTop  = `${oy}px`;
+    card.style.marginLeft = `${ox}px`;
 
     // Pin
     const pin = document.createElement('div');
@@ -271,7 +279,7 @@
 
   // ── Build envelope card ────────────────────────────────────
   function buildEnvelopeCard(data, isOpened) {
-    const rot = +(Math.random() * 8 - 4).toFixed(2);
+    const rot = +(Math.random() * 24 - 12).toFixed(2);
     const card = document.createElement('article');
     card.className = `envelope-card env-${data.color}${isOpened ? ' is-opened' : ''}`;
     card.dataset.id = data.id;
@@ -280,6 +288,12 @@
     card.setAttribute('aria-label', 'Abrir sobre con video sorpresa');
     card.style.setProperty('--rot', `${rot}deg`);
     card.style.transform = `rotate(${rot}deg)`;
+
+    // Offset aleatorio para desparramar
+    const oy = Math.round(Math.random() * 50 - 10);
+    const ox = Math.round(Math.random() * 14 - 7);
+    card.style.marginTop  = `${oy}px`;
+    card.style.marginLeft = `${ox}px`;
 
     card.innerHTML = `
       <div class="env-card-body">
