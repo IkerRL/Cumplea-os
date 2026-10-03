@@ -9,6 +9,8 @@
 
 window.VIDEOS = [
   { file: '20240614_ResilientCleanTeaGOWSkull-SQLhtlur-jaJGWa9_source.mp4',          color: 'red',    from: null },
+  { file: '20251228_HelpfulPopularSpiderYee-ofhTCEwfUXHVpj_h_source',                color: 'red',    from: null },
+  { file: '20260228_SucculentInexpensiveAuberginePMSTwin-hcuvLOGT5noKetc9_source',   color: 'red',    from: null },
   { file: '20240617_CovertEmpathicDragonfruitCmonBruh-uY4wGw3GA0Vo1fIR_source.mp4',  color: 'blue',   from: null },
   { file: '20240704_ClearBusyGarlicSaltBae-CMt9ee7Rg7eyFuMq_source.mp4',             color: 'green',  from: null },
   { file: '20240715_MoralFurtiveDragonfruitUncleNox-ApLlPx7xaXhscGeG_source.mp4',    color: 'purple', from: null },
