@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎂 Deja tu mensaje de cumpleaños</title>
-  <meta name="description" content="Deja un mensaje de cumpleaños para nuestra streamer favorita. ¡Sorpréndela el 4 de octubre!" />
+  <title>🎂 Tablón de Cumpleaños — Acceso</title>
+  <meta name="description" content="Introduce la combinación secreta para entrar al tablón de cumpleaños." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -15,177 +15,15 @@
   <!-- Partículas de fondo -->
   <div class="bg-particles" id="bgParticles"></div>
 
-  <!-- Header -->
-  <header class="site-header">
-    <div class="header-inner">
-      <button class="header-emoji" id="cakeHeaderBtn" aria-label="Acceso secreto al tablón" title="Acceso al muro">🎂</button>
-      <div>
-        <h1 class="header-title">Tablón de Cumpleaños</h1>
-        <p class="header-subtitle">Deja tu mensaje antes del <strong>4 de octubre</strong> 🎉</p>
-      </div>
-    </div>
-  </header>
-
-  <!-- Formulario principal -->
-  <main class="main-content">
-    <div class="card" id="formCard">
-
-      <!-- Intro -->
-      <div class="card-intro">
-        <p class="intro-text">
-          Escribe un mensaje, una anécdota o simplemente lo que sientas. 
-          El <strong>4 de octubre</strong> lo leeremos en directo juntos. 🎀
-        </p>
-      </div>
-
-      <form id="postItForm" novalidate>
-
-        <!-- Mensaje -->
-        <div class="form-group" id="groupMessage">
-          <label class="form-label" for="message">
-            <span class="label-icon">✍️</span> Tu mensaje
-            <span class="label-required">*</span>
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            class="form-textarea"
-            placeholder="Escribe aquí tu mensaje, anécdota favorita o lo que quieras que lea el día de su cumpleaños..."
-            maxlength="1000"
-            required
-          ></textarea>
-          <div class="textarea-footer">
-            <span class="char-counter"><span id="charCount">0</span>/1000</span>
-          </div>
-          <span class="field-error" id="messageError">El mensaje no puede estar vacío.</span>
-        </div>
-
-        <!-- Color del post-it -->
-        <div class="form-group">
-          <label class="form-label">
-            <span class="label-icon">🎨</span> Color de tu post-it
-          </label>
-          <div class="color-picker" id="colorPicker" role="radiogroup" aria-label="Color del post-it">
-            <button type="button" class="color-btn active" data-color="yellow" aria-label="Amarillo" title="Amarillo">
-              <span class="color-swatch swatch-yellow"></span>
-              <span class="color-name">Amarillo</span>
-            </button>
-            <button type="button" class="color-btn" data-color="pink" aria-label="Rosa" title="Rosa">
-              <span class="color-swatch swatch-pink"></span>
-              <span class="color-name">Rosa</span>
-            </button>
-            <button type="button" class="color-btn" data-color="green" aria-label="Verde" title="Verde">
-              <span class="color-swatch swatch-green"></span>
-              <span class="color-name">Verde</span>
-            </button>
-            <button type="button" class="color-btn" data-color="blue" aria-label="Azul" title="Azul">
-              <span class="color-swatch swatch-blue"></span>
-              <span class="color-name">Azul</span>
-            </button>
-            <button type="button" class="color-btn" data-color="orange" aria-label="Naranja" title="Naranja">
-              <span class="color-swatch swatch-orange"></span>
-              <span class="color-name">Naranja</span>
-            </button>
-            <button type="button" class="color-btn" data-color="purple" aria-label="Lila" title="Lila">
-              <span class="color-swatch swatch-purple"></span>
-              <span class="color-name">Lila</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Preview del post-it -->
-        <div class="postit-preview-wrapper">
-          <p class="preview-label">Vista previa de tu post-it</p>
-          <div class="postit-preview" id="postitPreview">
-            <div class="preview-pin"></div>
-            <p class="preview-text" id="previewText">Tu mensaje aparecerá aquí...</p>
-            <p class="preview-author" id="previewAuthor"></p>
-          </div>
-        </div>
-
-        <!-- Toggle anónimo -->
-        <div class="form-group anon-group">
-          <label class="toggle-label" for="isAnonymous" id="anonToggleLabel">
-            <div class="toggle-wrapper">
-              <input type="checkbox" id="isAnonymous" name="isAnonymous" class="toggle-input" />
-              <span class="toggle-track">
-                <span class="toggle-thumb"></span>
-              </span>
-            </div>
-            <div class="toggle-text">
-              <span class="toggle-title">Enviar de forma anónima 🎭</span>
-              <span class="toggle-desc">Aparecerá como "Un viewer anónimo"</span>
-            </div>
-          </label>
-        </div>
-
-        <!-- Campos de autor (visibles si NO es anónimo) -->
-        <div class="author-fields" id="authorFields">
-          <div class="form-group">
-            <label class="form-label" for="authorNick">
-              <span class="label-icon">🟣</span> Tu nick de Twitch
-            </label>
-            <input
-              type="text"
-              id="authorNick"
-              name="authorNick"
-              class="form-input"
-              placeholder="Tu nombre o nick en el chat"
-              maxlength="80"
-            />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="authorHint">
-              <span class="label-icon">🔍</span> Pista para adivinar quién eres <span class="label-optional">(opcional)</span>
-            </label>
-            <input
-              type="text"
-              id="authorHint"
-              name="authorHint"
-              class="form-input"
-              placeholder="ej: «El que siempre pide canciones de los 2000»"
-              maxlength="120"
-            />
-            <span class="field-hint">Se mostrará en el muro antes de revelar tu nombre. ¡Sé creativo!</span>
-          </div>
-        </div>
-
-        <!-- Botón de envío -->
-        <button type="submit" class="btn-submit" id="submitBtn">
-          <span class="btn-text">📌 Pegar mi post-it</span>
-          <span class="btn-loading" hidden>
-            <span class="spinner"></span> Guardando...
-          </span>
-        </button>
-
-      </form>
-
-      <!-- Estado de éxito -->
-      <div class="success-state" id="successState" hidden>
-        <div class="success-icon">🎉</div>
-        <h2 class="success-title">¡Post-it pegado en el tablón!</h2>
-        <p class="success-msg">Tu mensaje está guardado y aparecerá en el muro el día del cumpleaños. ¡Gracias por formar parte de esto! 💜</p>
-        <button class="btn-another" id="btnAnother">Dejar otro mensaje</button>
-      </div>
-
-    </div>
-  </main>
-
-  <!-- Canvas de confetti -->
-  <canvas id="confettiCanvas"></canvas>
-
-  <!-- ===== MODAL DE UNLOCK ===== -->
-  <div class="unlock-overlay" id="unlockOverlay" hidden>
+  <!-- ===== MODAL DE UNLOCK (se muestra nada más entrar) ===== -->
+  <div class="unlock-overlay" id="unlockOverlay">
     <div class="unlock-modal" id="unlockModal">
-
-      <!-- X cerrar -->
-      <button class="unlock-close" id="unlockClose" aria-label="Cerrar">✕</button>
 
       <!-- Pastel grande -->
       <div class="unlock-cake-big">🎂</div>
 
       <!-- Título -->
-      <p class="unlock-title">Acceso secreto al muro</p>
+      <h1 class="unlock-title">Acceso secreto al muro</h1>
 
       <!-- 4 ranuras en fila -->
       <div class="unlock-slots">
@@ -225,11 +63,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-  <script src="config.js"></script>
-  <script src="confetti.js"></script>
-  <script src="enviar.js"></script>
   <script src="unlock-modal.js"></script>
 </body>
 </html>
