@@ -10,10 +10,8 @@
   const SECRET_AGENT  = 'Astra';
 
   // DOM refs
-  const cakeBtn          = document.getElementById('cakeHeaderBtn');
   const overlay          = document.getElementById('unlockOverlay');
   const modal            = document.getElementById('unlockModal');
-  const closeBtn         = document.getElementById('unlockClose');
   const ud1              = document.getElementById('ud1');
   const ud2              = document.getElementById('ud2');
   const ud3              = document.getElementById('ud3');
@@ -24,31 +22,35 @@
   const agentPickerGrid  = document.getElementById('agentPickerGrid');
   const unlockBtn        = document.getElementById('unlockBtn');
   const unlockError      = document.getElementById('unlockError');
-
   let selectedAgent = null;
-  let agentsLoaded  = false;
+  const openUnlockModalBtn = document.getElementById('openUnlockModal');
+  const closeUnlockModalBtn = document.getElementById('closeUnlockModal');
 
-  // ── Abrir modal ─────────────────────────────────────────
-  cakeBtn.addEventListener('click', () => {
-    overlay.hidden = false;
-    document.body.style.overflow = 'hidden';
-    ud1.focus();
-    if (!agentsLoaded) loadAgents();
-  });
-
-  // ── Cerrar modal ─────────────────────────────────────────
-  function closeModal() {
-    overlay.hidden = true;
-    document.body.style.overflow = '';
+  // ── Abrir modal nada más entrar ──────────────────────────
+  overlay.hidden = false;
+  document.body.style.overflow = 'hidden';
+  ud1.focus();
+  if (agentPickerGrid.children.length === 0) {
+    loadAgents();
   }
 
-  closeBtn.addEventListener('click', closeModal);
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) closeModal();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !overlay.hidden) closeModal();
-  });
+  if (openUnlockModalBtn) {
+    openUnlockModalBtn.addEventListener('click', () => {
+      overlay.hidden = false;
+      document.body.style.overflow = 'hidden';
+      ud1.focus();
+      if (agentPickerGrid.children.length === 0) {
+        loadAgents();
+      }
+    });
+  }
+
+  if (closeUnlockModalBtn) {
+    closeUnlockModalBtn.addEventListener('click', () => {
+      overlay.hidden = true;
+      document.body.style.overflow = '';
+    });
+  }
 
   // ── Dígitos: auto-avance ─────────────────────────────────
   const digits = [ud1, ud2, ud3];
@@ -77,7 +79,6 @@
 
   // ── Cargar agentes desde Valorant API ────────────────────
   async function loadAgents() {
-    agentsLoaded = true;
     try {
       const res  = await fetch('https://valorant-api.com/v1/agents?isPlayableCharacter=true');
       const json = await res.json();

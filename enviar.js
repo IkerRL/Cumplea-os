@@ -5,13 +5,6 @@
 (function () {
   'use strict';
 
-  // ── Redirección por fecha límite ──────────────────────────
-  const deadline = new Date('2026-10-04T00:01:00+02:00');
-  if (new Date() >= deadline) {
-    window.location.replace('unlock.html'); // Cambia a la página de contraseña
-    return;
-  }
-
   // ── Firestore ────────────────────────────────────────────
   const db = firebase.firestore();
 
@@ -104,14 +97,6 @@
   // ── Form submission ───────────────────────────────────────
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    // Check deadline
-    const deadline = new Date('2026-10-04T00:01:00+02:00');
-    if (new Date() >= deadline) {
-      showToast('❌ El plazo para enviar post-its ha terminado.', 'error');
-      setLoading(false);
-      return;
-    }
 
     const msg = messageEl.value.trim();
     if (!msg) {

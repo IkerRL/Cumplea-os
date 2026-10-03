@@ -15,7 +15,10 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <span class="header-emoji">✉️</span>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <span class="header-emoji">✉️</span>
+        <button id="openUnlockModal" class="header-emoji" style="background:none; border:none; padding:0; text-decoration: none; cursor: pointer; font-size: inherit;" title="Ir al mural secreto">🎂</button>
+      </div>
       <div>
         <h1 class="header-title">Escribe tu Post-it</h1>
         <p class="header-subtitle">Sorpresa de cumpleaños <strong>(No lo compartas)</strong></p>
@@ -132,10 +135,38 @@
 
   <canvas id="confettiCanvas"></canvas>
 
+  <!-- Modal de desbloqueo -->
+  <div class="unlock-overlay" id="unlockOverlay" hidden>
+    <div class="unlock-modal" id="unlockModal">
+      <button class="unlock-close" id="closeUnlockModal" aria-label="Cerrar modal">✕</button>
+      <div class="unlock-cake-big">🎂</div>
+      <h2 class="unlock-title">Acceso al tablón secreto</h2>
+      
+      <div class="unlock-slots">
+        <input type="number" class="unlock-digit" id="ud1" min="0" max="9" maxlength="1" placeholder="·" inputmode="numeric">
+        <input type="number" class="unlock-digit" id="ud2" min="0" max="9" maxlength="1" placeholder="·" inputmode="numeric">
+        <input type="number" class="unlock-digit" id="ud3" min="0" max="9" maxlength="1" placeholder="·" inputmode="numeric">
+        <button type="button" class="unlock-agent-slot" id="agentSlot">
+          <span class="agent-slot-placeholder" id="agentSlotPlaceholder">?</span>
+          <img id="agentSlotImg" class="agent-slot-img" hidden alt="Agente">
+        </button>
+      </div>
+
+      <div class="agent-picker" id="agentPicker" hidden>
+        <p class="picker-label">Selecciona tu agente</p>
+        <div class="agent-picker-grid" id="agentPickerGrid"></div>
+      </div>
+
+      <button class="unlock-btn" id="unlockBtn">Desbloquear 🔓</button>
+      <p class="unlock-error" id="unlockError" hidden>❌ Combinación incorrecta.</p>
+    </div>
+  </div>
+
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="config.js"></script>
   <script src="confetti.js"></script>
   <script src="enviar.js"></script>
+  <script src="unlock-modal.js"></script>
 </body>
 </html>
