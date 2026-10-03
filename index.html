@@ -3,66 +3,139 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎂 Tablón de Cumpleaños — Acceso</title>
-  <meta name="description" content="Introduce la combinación secreta para entrar al tablón de cumpleaños." />
+  <title>🎂 Tablón de Cumpleaños — Enviar Post-it</title>
+  <meta name="description" content="Deja tu mensaje de cumpleaños para la streamer." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="enviar.css" />
 </head>
 <body>
-
-  <!-- Partículas de fondo -->
   <div class="bg-particles" id="bgParticles"></div>
 
-  <!-- ===== MODAL DE UNLOCK (se muestra nada más entrar) ===== -->
-  <div class="unlock-overlay" id="unlockOverlay">
-    <div class="unlock-modal" id="unlockModal">
-
-      <!-- Pastel grande -->
-      <div class="unlock-cake-big">🎂</div>
-
-      <!-- Título -->
-      <h1 class="unlock-title">Acceso secreto al muro</h1>
-
-      <!-- 4 ranuras en fila -->
-      <div class="unlock-slots">
-        <div class="slot-wrap">
-          <input type="number" class="unlock-digit" id="ud1" min="0" max="9" placeholder="·" inputmode="numeric" />
-        </div>
-        <div class="slot-wrap">
-          <input type="number" class="unlock-digit" id="ud2" min="0" max="9" placeholder="·" inputmode="numeric" />
-        </div>
-        <div class="slot-wrap">
-          <input type="number" class="unlock-digit" id="ud3" min="0" max="9" placeholder="·" inputmode="numeric" />
-        </div>
-        <!-- Ranura agente -->
-        <div class="slot-wrap">
-          <button class="unlock-agent-slot" id="agentSlot" aria-label="Seleccionar agente">
-            <span class="agent-slot-placeholder" id="agentSlotPlaceholder">?</span>
-            <img class="agent-slot-img" id="agentSlotImg" src="" alt="" hidden />
-          </button>
-        </div>
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="header-emoji">✉️</span>
+      <div>
+        <h1 class="header-title">Escribe tu Post-it</h1>
+        <p class="header-subtitle">Sorpresa de cumpleaños <strong>(No lo compartas)</strong></p>
       </div>
-
-      <!-- Picker de agentes (oculto hasta que se pulse la ranura) -->
-      <div class="agent-picker" id="agentPicker" hidden>
-        <p class="picker-label">Elige tu agente</p>
-        <div class="agent-picker-grid" id="agentPickerGrid">
-          <!-- Imágenes generadas por JS -->
-        </div>
-      </div>
-
-      <!-- Botón entrar -->
-      <button class="unlock-btn" id="unlockBtn">Entrar al tablón ✨</button>
-
-      <!-- Error -->
-      <p class="unlock-error" id="unlockError" hidden>❌ Combinación incorrecta</p>
-
     </div>
-  </div>
+  </header>
 
-  <!-- Scripts -->
-  <script src="unlock-modal.js"></script>
+  <main class="main-content">
+    <div class="card" id="formCard">
+      <div class="card-intro">
+        <p class="intro-text">
+          Deja un mensaje para el tablón. La streamer lo verá en directo.
+        </p>
+      </div>
+
+      <form id="postItForm">
+        <!-- Preview -->
+        <div class="postit-preview-wrapper">
+          <p class="preview-label">Vista previa</p>
+          <div class="postit-preview color-yellow" id="postitPreview">
+            <div class="preview-pin"></div>
+            <p class="preview-text" id="previewText">Tu mensaje aparecerá aquí...</p>
+            <p class="preview-author" id="previewAuthor"></p>
+          </div>
+        </div>
+
+        <!-- Mensaje -->
+        <div class="form-group">
+          <label class="form-label">
+            Tu mensaje <span class="label-required">*</span>
+          </label>
+          <textarea id="message" class="form-textarea" placeholder="¡Feliz cumpleaños! Ojalá lo pases genial..."></textarea>
+          <div class="textarea-footer">
+            <span class="char-counter"><span id="charCount">0</span>/1000</span>
+          </div>
+          <span class="field-error" id="messageError">El mensaje no puede estar vacío.</span>
+        </div>
+
+        <!-- Color -->
+        <div class="form-group">
+          <label class="form-label">Elige un color</label>
+          <div class="color-picker" id="colorPicker">
+            <button type="button" class="color-btn active" data-color="yellow">
+              <span class="color-swatch swatch-yellow"></span>
+              <span class="color-name">Amarillo</span>
+            </button>
+            <button type="button" class="color-btn" data-color="pink">
+              <span class="color-swatch swatch-pink"></span>
+              <span class="color-name">Rosa</span>
+            </button>
+            <button type="button" class="color-btn" data-color="green">
+              <span class="color-swatch swatch-green"></span>
+              <span class="color-name">Verde</span>
+            </button>
+            <button type="button" class="color-btn" data-color="blue">
+              <span class="color-swatch swatch-blue"></span>
+              <span class="color-name">Azul</span>
+            </button>
+            <button type="button" class="color-btn" data-color="orange">
+              <span class="color-swatch swatch-orange"></span>
+              <span class="color-name">Naranja</span>
+            </button>
+            <button type="button" class="color-btn" data-color="purple">
+              <span class="color-swatch swatch-purple"></span>
+              <span class="color-name">Lila</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Anónimo -->
+        <div class="form-group anon-group">
+          <label class="toggle-label">
+            <div class="toggle-wrapper">
+              <input type="checkbox" id="isAnonymous" class="toggle-input">
+              <div class="toggle-track">
+                <div class="toggle-thumb"></div>
+              </div>
+            </div>
+            <div class="toggle-text">
+              <span class="toggle-title">Mensaje anónimo</span>
+              <span class="toggle-desc">Nadie sabrá que fuiste tú 🎭</span>
+            </div>
+          </label>
+        </div>
+
+        <!-- Autor -->
+        <div class="author-fields" id="authorFields">
+          <div class="form-group">
+            <label class="form-label">Tu nick <span class="label-optional">(Opcional)</span></label>
+            <input type="text" id="authorNick" class="form-input" placeholder="Ej: viewer_ejemplo">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Pista para adivinar <span class="label-optional">(Opcional)</span></label>
+            <input type="text" id="authorHint" class="form-input" placeholder="Ej: Siempre spammeo emotes de ranas">
+            <span class="field-hint">Aparecerá oculta hasta que ella decida revelar quién eres.</span>
+          </div>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-submit">
+          <span class="btn-text">Pegar en el tablón 📌</span>
+          <span class="btn-loading spinner" hidden></span>
+        </button>
+      </form>
+
+      <!-- Estado de éxito -->
+      <div class="success-state" id="successState" hidden>
+        <div class="success-icon">🎉</div>
+        <h2 class="success-title">¡Post-it enviado!</h2>
+        <p class="success-msg">Tu mensaje ya está colocado en el tablón secreto. ¡Gracias por participar!</p>
+        <button type="button" id="btnAnother" class="btn-another">Escribir otro</button>
+      </div>
+    </div>
+  </main>
+
+  <canvas id="confettiCanvas"></canvas>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="config.js"></script>
+  <script src="confetti.js"></script>
+  <script src="enviar.js"></script>
 </body>
 </html>
