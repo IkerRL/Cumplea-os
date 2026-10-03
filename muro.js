@@ -440,7 +440,7 @@
 
   function onPlayerReady(event) {
     // Bajar el volumen para que sea música de fondo suave (0 a 100)
-    event.target.setVolume(15);
+    event.target.setVolume(5);
     // Intentamos reproducir automáticamente
     event.target.playVideo();
   }
