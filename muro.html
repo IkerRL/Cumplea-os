@@ -22,6 +22,7 @@
   <header class="muro-header">
     <div class="muro-header-inner">
       <div class="muro-title-group">
+        <button class="muro-emoji" id="btnMusicToggle" title="Música de fondo" aria-label="Música de fondo">🎵</button>
         <button class="muro-emoji" id="btnResetRead" title="Reiniciar leídos" aria-label="Reiniciar leídos">📌</button>
         <div>
           <h1 class="muro-title">Tablón de Cumpleaños</h1>
@@ -128,7 +129,11 @@
     </div>
   </div>
 
+  <!-- YouTube Music Player (Hidden) -->
+  <div id="youtubePlayer" style="position: absolute; top: -9999px; left: -9999px;"></div>
+
   <!-- Scripts -->
+  <script src="https://www.youtube.com/iframe_api"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="config.js"></script>

@@ -414,4 +414,61 @@
   // ── Init ──────────────────────────────────────────────────
   loadPostits();
 
+  // ── Reproductor de Música (YouTube) ───────────────────────
+  const btnMusicToggle = document.getElementById('btnMusicToggle');
+  let ytPlayer = null;
+  let isPlaying = false;
+
+  // Global callback para la API de YouTube
+  window.onYouTubeIframeAPIReady = function() {
+    ytPlayer = new YT.Player('youtubePlayer', {
+      height: '10', // Muy pequeño para que no se vea pero que el navegador no lo congele totalmente
+      width: '10',
+      videoId: 'o_UfJHtmFOY', // Tu vídeo
+      playerVars: { 
+        'autoplay': 1, 
+        'loop': 1, 
+        'playlist': 'o_UfJHtmFOY', 
+        'controls': 0 
+      },
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  };
+
+  function onPlayerReady(event) {
+    // Intentamos reproducir automáticamente
+    event.target.playVideo();
+  }
+
+  function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.PLAYING) {
+      isPlaying = true;
+      if (btnMusicToggle) btnMusicToggle.textContent = '🔊';
+    } else {
+      isPlaying = false;
+      if (btnMusicToggle) btnMusicToggle.textContent = '🎵';
+    }
+  }
+
+  if (btnMusicToggle) {
+    btnMusicToggle.addEventListener('click', () => {
+      if (!ytPlayer) return;
+      if (isPlaying) {
+        ytPlayer.pauseVideo();
+      } else {
+        ytPlayer.playVideo();
+      }
+    });
+  }
+
+  // Reproducir cuando se interactúa con el muro por primera vez (políticas de navegador)
+  document.body.addEventListener('click', () => {
+    if (ytPlayer && !isPlaying) {
+      ytPlayer.playVideo();
+    }
+  }, { once: true });
+
 })();

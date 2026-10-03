@@ -8,7 +8,7 @@
   // ── Redirección por fecha límite ──────────────────────────
   const deadline = new Date('2026-10-04T00:01:00+02:00');
   if (new Date() >= deadline) {
-    window.location.replace('index.html'); // Cambia a la página de contraseña
+    window.location.replace('unlock.html'); // Cambia a la página de contraseña
     return;
   }
 
